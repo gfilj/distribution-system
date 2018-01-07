@@ -8,6 +8,7 @@ import BasicForm from '../components/forms/BasicForm';
 import BasicTable from '../components/tables/BasicTables';
 import AdvancedTable from '../components/tables/AdvancedTables';
 import AsynchronousTable from '../components/tables/AsynchronousTable';
+import FanList from '../components/tables/FanList';
 import Echarts from '../components/charts/Echarts';
 import Recharts from '../components/charts/Recharts';
 import Icons from '../components/ui/Icons';
@@ -46,9 +47,13 @@ export default class CRouter extends Component {
             <Switch>
                 <Route exact path="/app/dashboard/index" component={Dashboard} />
                 <Route exact path="/app/form/basicForm" component={BasicForm} />
+
                 <Route exact path="/app/table/basicTable" component={BasicTable} />
                 <Route exact path="/app/table/advancedTable" component={AdvancedTable} />
                 <Route exact path="/app/table/asynchronousTable" component={AsynchronousTable} />
+                <Route exact path="/app/table/asynchronousTable" component={AsynchronousTable} />
+                <Route exact path="/app/table/fanlist" component={FanList} />
+
                 <Route exact path="/app/chart/echarts" component={Echarts} />
                 <Route exact path="/app/chart/recharts" component={Recharts} />
 

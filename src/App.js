@@ -29,24 +29,21 @@ class App extends Component {
     componentDidMount() {
         const openNotification = () => {
             notification.open({
-              message: '博主-yezihaohao',
+              message: 'luchangqing',
               description: (
                   <div>
                       <p>
-                          GitHub地址： <a href="https://github.com/yezihaohao" target="_blank" rel="noopener noreferrer">https://github.com/yezihaohao</a>
-                      </p>
-                      <p>
-                          博客地址： <a href="https://yezihaohao.github.io/" target="_blank" rel="noopener noreferrer">https://yezihaohao.github.io/</a>
+                          您已经成功登陆分销系统！
                       </p>
                   </div>
               ),
               icon: <Icon type="smile-circle" style={{ color: 'red' }} />,
-              duration: 0,
+                duration: 2,
             });
-            localStorage.setItem('isFirst', JSON.stringify(true));
+            localStorage.setItem('isFirst', JSON.stringify(false));
         };
         const isFirst = JSON.parse(localStorage.getItem('isFirst'));
-        !isFirst && openNotification();
+        openNotification();
     }
     getClientWidth = () => {    // 获取当前浏览器宽度并设置responsive管理响应式
         const { receiveData } = this.props;
@@ -72,7 +69,7 @@ class App extends Component {
                         <Routes auth={auth} />
                     </Content>
                     <Footer style={{ textAlign: 'center' }}>
-                    React-Admin ©2017 Created by 865470087@qq.com
+                    分销系统 ©2018 <a href="http://shop.680.com/10399907/">瑞驰科技</a> 制作
                     </Footer>
                 </Layout>
                 

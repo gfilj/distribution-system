@@ -28,6 +28,7 @@ export const menus = [
             { key: '/app/table/basicTable', title: '基础表格', icon: '', },
             { key: '/app/table/advancedTable', title: '高级表格', icon: '', },
             { key: '/app/table/asynchronousTable', title: '异步表格', icon: '', },
+            { key: '/app/table/fanlist', title: '粉丝清单', icon: '', },
         ],
     },
     {

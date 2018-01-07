@@ -2,7 +2,7 @@
  * Created by hao.cheng on 2017/4/15.
  */
 import React from 'react';
-import { Table, Icon } from 'antd';
+import {Table, Icon} from 'antd';
 
 const columns = [{
     title: 'Name',
@@ -22,14 +22,14 @@ const columns = [{
     key: 'action',
     render: (text, record) => (
         <span>
-      <a>Action 一 {record.name}</a>
-      <span className="ant-divider" />
-      <a>Delete</a>
-      <span className="ant-divider" />
-      <a className="ant-dropdown-link">
-        More actions <Icon type="down" />
-      </a>
-    </span>
+          <a>Action 一 {record.name}</a>
+          <span className="ant-divider"/>
+          <a>Delete</a>
+          <span className="ant-divider"/>
+          <a className="ant-dropdown-link">
+            More actions <Icon type="down"/>
+          </a>
+        </span>
     ),
 }];
 
@@ -51,7 +51,7 @@ const data = [{
 }];
 
 const BasicTable = () => (
-    <Table columns={columns} dataSource={data} />
+    <Table columns={columns} dataSource={data}/>
 );
 
 export default BasicTable;
