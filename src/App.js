@@ -29,7 +29,7 @@ class App extends Component {
     componentDidMount() {
         const openNotification = () => {
             notification.open({
-              message: 'luchangqing',
+              // message: 'zhoulili',
               description: (
                   <div>
                       <p>
