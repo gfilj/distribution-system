@@ -3,19 +3,28 @@
  */
 import React, { Component } from 'react';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import PropTypes from 'prop-types';
+
 const FormItem = Form.Item;
 
 class NormalLoginForm extends Component {
+    static propTypes = {
+        form: PropTypes.object,
+
+    }
+
     handleSubmit = (e) => {
+        const { form } = this.props;
         e.preventDefault();
-        this.props.form.validateFields((err, values) => {
+        form.validateFields((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
             }
         });
     };
     render() {
-        const { getFieldDecorator } = this.props.form;
+        const { form } = this.props;
+        const { getFieldDecorator } = form;
         return (
             <Form onSubmit={this.handleSubmit} style={{maxWidth: '300px'}}>
                 <FormItem>

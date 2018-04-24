@@ -7,6 +7,8 @@ import LoginForm from './LoginForm';
 import ModalForm from './ModalForm';
 import HorizontalForm from './HorizontalForm';
 import BreadcrumbCustom from '../BreadcrumbCustom';
+import PropTypes from 'prop-types';
+
 const FormItem = Form.Item;
 const Option = Select.Option;
 
@@ -35,12 +37,16 @@ const residences = [{
 }];
 
 class BasicForms extends Component {
+    static propTypes = {
+        form: PropTypes.object
+    }
     state = {
         confirmDirty: false,
     };
     handleSubmit = (e) => {
+        const {form} =  this.props;
         e.preventDefault();
-        this.props.form.validateFieldsAndScroll((err, values) => {
+        form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
             }

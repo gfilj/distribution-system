@@ -85,7 +85,7 @@ class ExampleAnimations extends React.Component {
                                     bordered
                                     dataSource={dataSource}
                                     columns={columns}
-                                    rowClassName={(record, index) => {
+                                    rowClassName={(record) => {
                                         if (this.state.deleteIndex === record.key) return 'animated zoomOutLeft min-black';
                                         return 'animated fadeInRight';
                                     }}

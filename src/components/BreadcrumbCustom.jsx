@@ -5,8 +5,13 @@ import React from 'react';
 import { Breadcrumb, Switch, Icon } from 'antd';
 import { Link } from 'react-router-dom';
 import themes from '../style/theme';
+import PropTypes from 'prop-types';
 
 class BreadcrumbCustom extends React.Component {
+    static propTypes = {
+        first: PropTypes.string,
+        second: PropTypes.string
+    }
     state = {
         switcherOn: false,
         theme: null,
@@ -33,6 +38,7 @@ class BreadcrumbCustom extends React.Component {
     themeChange = (v) => {
         this.setState({
             themes: this.state.themes.map((t, i) => {
+                console.log(i);
                 (t.type === v.type && (t.checked = !t.checked)) || (t.checked = false);
                 return t;
             }),

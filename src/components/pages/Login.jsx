@@ -6,10 +6,18 @@ import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchData, receiveData } from '@/action';
+import PropTypes from "prop-types";
 
 const FormItem = Form.Item;
 
 class Login extends React.Component {
+    static propTypes = {
+        receiveData: PropTypes.object,
+        auth: PropTypes.object,
+        router: PropTypes.array,
+        form: PropTypes.object,
+        fetchData: PropTypes.object
+    }
     componentWillMount() {
         const { receiveData } = this.props;
         receiveData(null, 'auth');

@@ -90,7 +90,7 @@ class Drags extends React.Component {
                         <div className="gutter-box">
                             <Draggable cancel="strong" {...dragHandlers}>
                                 <Card bordered={false} className={'dragDemo'}>
-                                    <strong className="no-cursor"><div>Can't drag here</div></strong>
+                                    <strong className="no-cursor"><div>Can not drag here</div></strong>
                                     <div>Dragging here works</div>
                                 </Card>
                             </Draggable>

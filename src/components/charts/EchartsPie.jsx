@@ -69,6 +69,7 @@ const option = {
             animationType: 'scale',
             animationEasing: 'elasticOut',
             animationDelay: function (idx) {
+                console.log(idx);
                 return Math.random() * 200;
             }
         }

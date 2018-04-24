@@ -6,10 +6,20 @@ import { Layout } from 'antd';
 import { withRouter } from 'react-router-dom';
 import { menus } from '../constants/menus';
 import SiderMenu from './SiderMenu';
+import PropTypes from "prop-types";
+
 
 const { Sider } = Layout;
 
 class SiderCustom extends Component {
+    static propTypes = {
+        auth: PropTypes.object,
+        responsive: PropTypes.object,
+        collapsed: PropTypes.bool,
+        location: PropTypes.object,
+        popoverHide: PropTypes.func
+    }
+
     state = {
         collapsed: false,
         mode: 'inline',
@@ -63,7 +73,7 @@ class SiderCustom extends Component {
                 collapsed={this.props.collapsed}
                 style={{ overflowY: 'auto' }}
             >
-                <div className="logo" />
+                <div className="logo"/>
                 <SiderMenu
                     menus={menus}
                     onClick={this.menuClick}

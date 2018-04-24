@@ -6,7 +6,7 @@ export const queryString = () => {
     let _queryString = {};
     const _query = window.location.search.substr(1);
     const _vars = _query.split('&');
-    _vars.forEach((v, i) => {
+    _vars.forEach((v) => {
         const _pair = v.split('=');
         if (!_queryString.hasOwnProperty(_pair[0])) {
             _queryString[_pair[0]] = decodeURIComponent(_pair[1]);

@@ -7,9 +7,15 @@ import { receiveData } from './action';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Routes from './routes';
+import PropTypes from "prop-types";
 const { Content, Footer } = Layout;
 
 class App extends Component {
+    static propTypes = {
+        receiveData: PropTypes.object,
+        auth: PropTypes.object,
+        responsive: PropTypes.object
+    }
     state = {
         collapsed: false,
     };
@@ -42,7 +48,7 @@ class App extends Component {
             });
             localStorage.setItem('isFirst', JSON.stringify(false));
         };
-        const isFirst = JSON.parse(localStorage.getItem('isFirst'));
+        // const isFirst = JSON.parse(localStorage.getItem('isFirst'));
         openNotification();
     }
     getClientWidth = () => {    // 获取当前浏览器宽度并设置responsive管理响应式

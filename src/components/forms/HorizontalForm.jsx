@@ -2,8 +2,10 @@
  * Created by hao.cheng on 2017/4/15.
  */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { Form, Icon, Input, Button } from 'antd';
+
 const FormItem = Form.Item;
 
 function hasErrors(fieldsError) {
@@ -11,6 +13,10 @@ function hasErrors(fieldsError) {
 }
 
 class HorizontalLoginForm extends Component {
+    static propTypes ={
+        form: PropTypes.object,
+    }
+
     componentDidMount() {
         // To disabled submit button at the beginning.
         this.props.form.validateFields();

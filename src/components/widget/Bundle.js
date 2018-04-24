@@ -1,36 +1,42 @@
-import { Component } from 'react'
+import {Component} from 'react'
+import PropTypes from 'prop-types'
 
 class Bundle extends Component {
-  state = {
-    // short for "module" but that's a keyword in js, so "mod"
-    mod: null
-  }
-
-  componentWillMount() {
-    this.load(this.props)
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.load !== this.props.load) {
-      this.load(nextProps)
+    static propTypes = {
+        load: PropTypes.func,
+        children: PropTypes.func
     }
-  }
+    state = {
+        // short for "module" but that's a keyword in js, so "mod"
+        mod: null
+    }
 
-  load(props) {
-    this.setState({
-      mod: null
-    })
-    props.load((mod) => {
-      this.setState({
-        // handle both es imports and cjs
-        mod: mod.default ? mod.default : mod
-      })
-    })
-  }
+    componentWillMount() {
+        this.load(this.props)
+    }
 
-  render() {
-    return this.state.mod ? this.props.children(this.state.mod) : null
-  }
+    componentWillReceiveProps(nextProps) {
+        const {load} = this.props;
+        if (nextProps.load !== load) {
+            this.load(nextProps)
+        }
+    }
+
+    load(props) {
+        this.setState({
+            mod: null
+        })
+        props.load((mod) => {
+            this.setState({
+                // handle both es imports and cjs
+                mod: mod.default ? mod.default : mod
+            })
+        })
+    }
+
+    render() {
+        return this.state.mod ? this.props.children(this.state.mod) : null
+    }
 }
 
 export default Bundle;

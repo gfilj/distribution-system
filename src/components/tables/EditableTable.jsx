@@ -3,8 +3,15 @@
  */
 import React from 'react';
 import { Table, Input, Popconfirm } from 'antd';
+import PropTypes from 'prop-types';
 
 class EditableCell extends React.Component {
+    static propTypes = {
+        value: PropTypes.string,
+        editable: PropTypes.bool,
+        onChange: PropTypes.func,
+        status: PropTypes.string
+    }
     state = {
         value: this.props.value,
         editable: this.props.editable || false,
@@ -56,6 +63,10 @@ class EditableCell extends React.Component {
 }
 
 class EditableTable extends React.Component {
+    static propTypes ={
+
+    }
+
     constructor(props) {
         super(props);
         this.columns = [{

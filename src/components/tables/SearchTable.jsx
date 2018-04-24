@@ -52,7 +52,7 @@ class SearchTable extends React.Component {
                     name: (
                         <span>
               {record.name.split(reg).map((text, i) => (
-                  i > 0 ? [<span className="highlight">{match[0]}</span>, text] : text
+                  i > 0 ? [<span className="highlight" key='id'>{match[0]}</span>, text] : text
               ))}
             </span>
                     ),

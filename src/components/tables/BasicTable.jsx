@@ -8,7 +8,9 @@ const columns = [{
     title: 'Name',
     dataIndex: 'name',
     key: 'name',
-    render: text => <a>{text}</a>,
+    render(text) {
+        return <a>{text}</a>;
+    }
 }, {
     title: 'Age',
     dataIndex: 'age',
@@ -20,17 +22,19 @@ const columns = [{
 }, {
     title: 'Action',
     key: 'action',
-    render: (text, record) => (
-        <span>
-          <a>Action 一 {record.name}</a>
-          <span className="ant-divider"/>
-          <a>Delete</a>
-          <span className="ant-divider"/>
-          <a className="ant-dropdown-link">
-            More actions <Icon type="down"/>
-          </a>
-        </span>
-    ),
+    render(text, record) {
+        return (
+            <span>
+              <a>Action 一 {record.name}</a>
+              <span className="ant-divider"/>
+              <a>Delete</a>
+              <span className="ant-divider"/>
+              <a className="ant-dropdown-link">
+                More actions <Icon type="down"/>
+              </a>
+            </span>
+        );
+    }
 }];
 
 const data = [{
