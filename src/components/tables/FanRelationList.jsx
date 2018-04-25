@@ -93,46 +93,30 @@ import PaginationTable from '../../commons/table/PaginationTable';
 // }
 
 
-class FanList extends React.Component {
+class FanRelationList extends React.Component {
     _url = {
-        listUrl: '/wechat/user/listjson',
+        listUrl: '/wechat/user/releationjson',
     }
     createColumns = () => {
         let columns = [
-            {
-                title: '序号',
-                dataIndex: 'id',
-                key: 'id',
-            }, {
-                title: '昵称',
-                dataIndex: 'nickname',
-                key: 'nickname',
-                // onCellClick: clickTitleCellCb,
-            }, {
-                title: 'openid',
-                dataIndex: 'openid',
-                key: 'openid',
-            }, {
-                title: '性别',
-                dataIndex: 'sex_str',
-                key: 'sex_str',
-            }, {
-                title: '城市',
-                dataIndex: 'city',
-                key: 'city',
-            }, {
-                title: '省份',
-                dataIndex: 'province',
-                key: 'province',
-            }, {
-                title: '国家',
-                dataIndex: 'country',
-                key: 'country',
-            }, {
-                title: '关注时间',
-                dataIndex: 'subscribe_time_str',
-                key: 'subscribe_time_str',
-            }
+                {
+                    title: '序号',
+                    dataIndex: 'id',
+                    key: 'id',
+                }, {
+                    title: '介绍人',
+                    dataIndex: 'introducername',
+                    key: 'introducername',
+                    // onCellClick: clickTitleCellCb,
+                }, {
+                    title: '粉丝',
+                    dataIndex: 'newmembername',
+                    key: 'newmembername',
+                }, {
+                    title: '关注时间',
+                    dataIndex: 'lmodifyStr',
+                    key: 'lmodifyStr',
+                }
 // , {
 //     title: 'Action',
 //     key: 'action',
@@ -205,4 +189,4 @@ class FanList extends React.Component {
 }
 
 
-export default FanList;
+export default FanRelationList;

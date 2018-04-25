@@ -20,7 +20,7 @@ import {
     // reasonSplit,
     // auditStatusOmck,
 } from "../../components/auth/AuthCenter.jsx";
-
+const STR = '被调用，this指向：';
 class PaginationTable extends React.PureComponent {
     //参数校验
     static propTypes = {
@@ -116,8 +116,46 @@ class PaginationTable extends React.PureComponent {
         canRowClickChange: false,
     }
 
+    //构造函数
+    constructor(props) {
+        super(props);
+        // 生成表格列配置
+        this.columns = this.initColumns();
+        this.state = this.initState();
+        this.log = false;
+        this.detail_status = true
+    }
+    // 生成列配置
+    initColumns = () => {
+        const {
+            createColumns,
+        } = this.props;
+        return createColumns();
+    }
+    initState = () => {
+        return {
+            // 日志列表
+            list: [],
+            // 是否正在执行搜索日志
+            isSearching: false,
+            // 每页多少条
+            pageSize: 20,
+            // 当前页数
+            currentPage: 1,
+            // 总共请求数量
+            totalNum: 0,
+            // 是否在加载文章
+            isLoadingArticle: false,
+            // 当前docid
+            currentDocId: "",
+            // 是否显示详细页
+            isShowDetail: false,
+            article: {},
+        }
+    }
+
     //组建加载完毕后立即执行
-    componentDidMount() {
+    componentDidMount = () => {
         // if (location.hash) {
         //     const id = location.hash.slice(1).replace("&", "/");
         //     // this.requestDetail(id)
@@ -128,16 +166,16 @@ class PaginationTable extends React.PureComponent {
         this.handleSubmitSearch();
         // }
     }
-
     // 执行查询
-    handleSubmitSearch = function handleSubmitSearch() {
+    handleSubmitSearch = () =>{
         const {
             pageSize,
             currentPage
         } = this.state;
-
+        console.log("执行查询 handleSubmitSearch");
         this.requestLog(currentPage, pageSize);
     }
+
     //按照docid请求默认值
     requestDetail = (docid) => {
         // const {
@@ -176,8 +214,10 @@ class PaginationTable extends React.PureComponent {
         // }
     }
     //查询日志
-    requestLog = function (currentPage, pageSize) {
+    requestLog =(currentPage, pageSize) => {
         const that = this;
+        console.log("执行查询 requestLog:" + currentPage + ",pageSize:" + pageSize);
+        console.log(`render ${STR}`,this);
         this.setState({
             isSearching: true
         }, () => {
@@ -186,9 +226,7 @@ class PaginationTable extends React.PureComponent {
                 offset: (currentPage - 1) * pageSize,
             };
             // const target = this.createRequestArgs();
-            console.log(data);
             const {listUrl} = this.props._url;
-            console.log(listUrl);
             ajaxHoc.ajaxRequest({
                 url: listUrl,
                 data: data,
@@ -208,8 +246,9 @@ class PaginationTable extends React.PureComponent {
             })
         })
     }
+
     //生成请求参数
-    createRequestArgs = function () {
+    createRequestArgs = () =>{
         // const {
         //     lmodifyGE,
         //     lmodifyLE,
@@ -247,54 +286,17 @@ class PaginationTable extends React.PureComponent {
     }
 
     //错误捕捉
-    componentDidCatch(err, info) {
+    componentDidCatch=(err, info) =>{
         console.log(err);
         console.log(info);
     }
+
 
     //点击标题
     handleClickTitle = (row) => {
         console.log(row)
         // this.requestDetail(row.docid)
     }
-    // 生成列配置
-    initColumns = function () {
-        const {
-            createColumns,
-        } = this.props;
-        return createColumns({
-            clickTitleCellCb: this.handleClickTitle,
-        })
-    }
-
-    //构造函数
-    constructor(props) {
-        super(props);
-        // 生成表格列配置
-        this.columns = this.initColumns();
-        this.state = {
-            // 日志列表
-            list: [],
-            // 是否正在执行搜索日志
-            isSearching: false,
-            // 每页多少条
-            pageSize: 20,
-            // 当前页数
-            currentPage: 1,
-            // 总共请求数量
-            totalNum: 0,
-            // 是否在加载文章
-            isLoadingArticle: false,
-            // 当前docid
-            currentDocId: "",
-            // 是否显示详细页
-            isShowDetail: false,
-            article: {},
-        }
-        this.log = false;
-        this.detail_status = true
-    }
-
     render() {
 
         const {
@@ -312,7 +314,7 @@ class PaginationTable extends React.PureComponent {
                     columns={this.columns}
                     dataSource={list}
                     pagination={false}
-                    rowKey="docid"
+                    rowKey="id"
                 />
                 <Pagination
                     totalNum={totalNum}

@@ -113,5 +113,11 @@
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "proxy": {
+    "wechat/*":{
+      "target":"http://go.news.163.com:8080/",
+      "changeOrigin": true
+    }
   }
 }

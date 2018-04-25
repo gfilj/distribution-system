@@ -12,7 +12,7 @@ const { Content, Footer } = Layout;
 
 class App extends Component {
     static propTypes = {
-        receiveData: PropTypes.object,
+        receiveData: PropTypes.func,
         auth: PropTypes.object,
         responsive: PropTypes.object
     }
@@ -44,7 +44,7 @@ class App extends Component {
                   </div>
               ),
               icon: <Icon type="smile-circle" style={{ color: 'red' }} />,
-                duration: 2,
+                duration: 5,
             });
             localStorage.setItem('isFirst', JSON.stringify(false));
         };

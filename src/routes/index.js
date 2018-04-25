@@ -9,6 +9,8 @@ import BasicTable from '../components/tables/BasicTables';
 import AdvancedTable from '../components/tables/AdvancedTables';
 import AsynchronousTable from '../components/tables/AsynchronousTable';
 import FanList from '../components/tables/FanList';
+import FanRelationList from '../components/tables/FanRelationList';
+import FanLogList from '../components/tables/FanLogList';
 import Echarts from '../components/charts/Echarts';
 import Recharts from '../components/charts/Recharts';
 import Icons from '../components/ui/Icons';
@@ -57,6 +59,8 @@ export default class CRouter extends Component {
                 <Route exact path="/app/table/asynchronousTable" component={AsynchronousTable} />
                 <Route exact path="/app/table/asynchronousTable" component={AsynchronousTable} />
                 <Route exact path="/app/table/fanlist" component={FanList} />
+                <Route exact path="/app/table/fanrelationlist" component={FanRelationList} />
+                <Route exact path="/app/table/fanloglist" component={FanLogList} />
 
                 <Route exact path="/app/chart/echarts" component={Echarts} />
                 <Route exact path="/app/chart/recharts" component={Recharts} />
