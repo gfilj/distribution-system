@@ -2,6 +2,7 @@ import React from 'react';
 import {Row, Col, Card} from 'antd';
 import BreadcrumbCustom from '../BreadcrumbCustom';
 import PaginationTable from '../../commons/table/PaginationTable';
+import UserForm from "../forms/UserForm";
 
 
 
@@ -107,7 +108,9 @@ class FanList extends React.Component {
                 title: '昵称',
                 dataIndex: 'nickname',
                 key: 'nickname',
-                // onCellClick: clickTitleCellCb,
+                render:(text,record)=> <UserForm
+                    row={record}
+                />,
             }, {
                 title: 'openid',
                 dataIndex: 'openid',

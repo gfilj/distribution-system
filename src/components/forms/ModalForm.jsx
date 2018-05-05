@@ -1,6 +1,3 @@
-/**
- * Created by hao.cheng on 2017/4/15.
- */
 import React, { Component } from 'react';
 import { Button, Modal, Form, Input, Radio } from 'antd';
 const FormItem = Form.Item;
@@ -72,7 +69,7 @@ class ModalForm extends Component {
     render() {
         return (
             <div>
-                <Button type="primary" onClick={this.showModal}>新建收藏</Button>
+                <Button type="dashed" onClick={this.showModal}>新建收藏</Button>
                 <CollectionCreateForm
                     ref={this.saveFormRef}
                     visible={this.state.visible}

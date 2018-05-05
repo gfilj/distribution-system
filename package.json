@@ -116,7 +116,7 @@
   },
   "proxy": {
     "wechat/*":{
-      "target":"http://go.news.163.com:8080/",
+      "target":"http://www.kurkuma.cn/",
       "changeOrigin": true
     }
   }
