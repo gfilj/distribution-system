@@ -21,6 +21,13 @@ const
     isFunction = (target) => {
         return toString.call(target) === "[object Function]";
     },
+
+    isNullObject = (target) => {
+        if (JSON.stringify(target) === '{}') {
+            return true // 如果为空,返回false
+        }
+        return false
+    },
     isEmpty = (target) => {
         if (target === undefined
             || target === null
@@ -468,6 +475,7 @@ export {
     isString,
     isBoolean,
     isFunction,
+    isNullObject,
     deepCopy,
     traveseLinks,
     errorLog,

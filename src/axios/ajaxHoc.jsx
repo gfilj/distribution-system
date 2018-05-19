@@ -19,7 +19,7 @@ const
         alert(error.message);
     },
     defaultConfig = {
-        timeout: 10000,
+        timeout: 100000,
         noRepeat: 0,
     },
     requestStaus = {

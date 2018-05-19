@@ -4,7 +4,7 @@
   "homepage": ".",
   "private": true,
   "dependencies": {
-    "antd": "^3.0.1",
+    "antd": "^3.5.2",
     "autoprefixer": "7.1.1",
     "axios": "^0.16.2",
     "babel-core": "6.25.0",
@@ -40,9 +40,9 @@
     "promise": "7.1.1",
     "prop-types": "^15.5.10",
     "rc-banner-anim": "^0.5.13",
-    "react": "^15.6.1",
+    "react": "^16.2.0",
     "react-dev-utils": "^3.0.2",
-    "react-dom": "^15.6.1",
+    "react-dom": "^16.2.0",
     "react-draft-wysiwyg": "^1.10.0",
     "react-draggable": "^2.2.6",
     "react-error-overlay": "^1.0.9",
@@ -115,8 +115,8 @@
     "extends": "react-app"
   },
   "proxy": {
-    "wechat/*":{
-      "target":"http://www.kurkuma.cn/",
+    "/*": {
+      "target": "http://localhost:8080/",
       "changeOrigin": true
     }
   }

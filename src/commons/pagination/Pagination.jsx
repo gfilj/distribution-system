@@ -12,7 +12,7 @@ class Pagination extends React.PureComponent {
         pageSizeOptions: PropTypes.array,
         handleChangePageSize: PropTypes.func,
         handleChangePage: PropTypes.func,
-        requestFn: PropTypes.func
+        requestFn: PropTypes.func,
     }
     static defaultProps = {
         totalNum: 0,

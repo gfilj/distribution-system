@@ -96,7 +96,7 @@ import UserForm from "../forms/UserForm";
 
 class FanList extends React.Component {
     _url = {
-        listUrl: '/wechat/user/listjson',
+        listUrl: '/wechat/user/listjson'
     }
     createColumns = () => {
         let columns = [
@@ -164,6 +164,7 @@ class FanList extends React.Component {
 
     render() {
         return (
+
             <div className="gutter-example">
                 <BreadcrumbCustom first="清单" second="粉丝清单"/>
                 <Row gutter={16}>

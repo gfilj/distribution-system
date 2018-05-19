@@ -1,15 +1,10 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import PropTypes from "prop-types";
-import Pagination from "../pagination/Pagination"
-import {
-    Table,
-    // Input,
-    // Button,
-    // Modal,
-    // Radio,
-    // Spin
-} from "antd";
+import Pagination from "../pagination/Pagination";
+import {Table, Input, InputNumber, Popconfirm, Form} from "antd";
 import ajaxHoc from "../../axios/ajaxHoc.jsx";
+import {isNullObject} from "../../axios/utils.js"
 import {
     // selectDateScope,
     Global
@@ -20,8 +15,96 @@ import {
     // reasonSplit,
     // auditStatusOmck,
 } from "../../components/auth/AuthCenter.jsx";
+
 const STR = '被调用，this指向：';
-class PaginationTable extends React.PureComponent {
+
+const FormItem = Form.Item;
+const EditableContext = React.createContext();
+
+class EditableRow extends React.Component {
+    static propTypes = {
+        form: PropTypes.object,
+        index: PropTypes.number
+    }
+
+    render() {
+        const {
+            form,
+        } = this.props;
+        return (
+            <EditableContext.Provider value={form}>
+                <tr {...this.props} />
+            </EditableContext.Provider>
+        );
+
+    }
+}
+
+
+const EditableFormRow = Form.create()(EditableRow);
+
+
+
+
+class EditableCell extends React.Component {
+    //参数校验
+    static propTypes = {
+        inputType: PropTypes.string,
+        editing: PropTypes.bool,
+        dataIndex: PropTypes.string,
+        title: PropTypes.string,
+        restProps: PropTypes.array,
+        record: PropTypes.object,
+    }
+    getInput = (inputType) => {
+        if (inputType === 'number') {
+            return <InputNumber size="small"/>;
+        }
+        return <Input size="small"/>;
+    };
+    render() {
+        const {
+            editing,
+            dataIndex,
+            title,
+            inputType,
+            record,
+            // index,
+            ...restProps
+        } = this.props;
+        return (
+            <EditableContext.Consumer>
+                {(form) => {
+                    const {
+                        // getFieldsValue,
+                        getFieldDecorator} = form;
+                    //console.log("获取输入值" + JSON.stringify(getFieldsValue()));
+                    return (
+                        <td {...restProps}>
+                            {editing ? (
+                                <FormItem>
+                                    {getFieldDecorator(dataIndex, {
+                                        rules: [
+                                            {
+                                                required: true,
+                                                message: `Please Input ${title}!`,
+                                            },
+                                        ],
+                                        initialValue: record[dataIndex],
+                                    })(this.getInput(inputType))}
+                                </FormItem>
+                            ) : (
+                                restProps.children
+                            )}
+                        </td>
+                    );
+                }}
+            </EditableContext.Consumer>
+        );
+    }
+}
+
+class FixedPaginationTable extends React.PureComponent {
     //参数校验
     static propTypes = {
         // 导出日志url
@@ -127,20 +210,24 @@ class PaginationTable extends React.PureComponent {
         this.columns = this.initColumns();
         this.state = this.initState();
         this.log = false;
-        this.detail_status = true
+        this.detail_status = true,
+        this.editingRow={}
     }
+
     // 生成列配置
     initColumns = () => {
         const {
             createColumns,
         } = this.props;
-        return createColumns();
+        return createColumns(this.renderOperation);
     }
     initState = () => {
         const {
             pageSize
         } = this.props;
         return {
+
+            editingKey: '',
             // 日志列表
             list: [],
             // 是否正在执行搜索日志
@@ -174,7 +261,7 @@ class PaginationTable extends React.PureComponent {
         // }
     }
     // 执行查询
-    handleSubmitSearch = () =>{
+    handleSubmitSearch = () => {
         const {
             pageSize,
             currentPage
@@ -221,10 +308,10 @@ class PaginationTable extends React.PureComponent {
         // }
     }
     //查询日志
-    requestLog =(currentPage, pageSize) => {
+    requestLog = (currentPage, pageSize) => {
         const that = this;
         console.log("执行查询 requestLog:" + currentPage + ",pageSize:" + pageSize);
-        console.log(`render ${STR}`,this);
+        console.log(`render ${STR}`, this);
         this.setState({
             isSearching: true
         }, () => {
@@ -255,7 +342,7 @@ class PaginationTable extends React.PureComponent {
     }
 
     //生成请求参数
-    createRequestArgs = () =>{
+    createRequestArgs = () => {
         // const {
         //     lmodifyGE,
         //     lmodifyLE,
@@ -293,7 +380,7 @@ class PaginationTable extends React.PureComponent {
     }
 
     //错误捕捉
-    componentDidCatch=(err, info) =>{
+    componentDidCatch = (err, info) => {
         console.log(err);
         console.log(info);
     }
@@ -304,7 +391,109 @@ class PaginationTable extends React.PureComponent {
         console.log(row)
         // this.requestDetail(row.docid)
     }
+
+    renderOperation = (text, record) => {
+        const that = this;
+        const editable = this.isEditing(record);
+        return (
+            <div>
+                {editable ? (
+                    <span>
+                  <EditableContext.Consumer>
+                      {(form) => {
+                          const {
+                          getFieldsValue} = form;
+                          const data = getFieldsValue();
+                          if(!isNullObject(data)){
+                              console.log("获取输入值:" + JSON.stringify(data));
+                              that.editrow=data
+                          }
+
+                          return (
+                              <a
+                                  href="javascript:;"
+                                  onClick={() => this.save(form, record.key,)}
+                              >
+                                  保存
+                              </a>
+                          );
+
+                      }}
+
+                  </EditableContext.Consumer>
+                  <Popconfirm
+                      title="确定取消么？"
+                      onConfirm={() => this.cancel(record.key)}
+                      cancelText="取消"
+                      okText="确认"
+                  >&nbsp;<a>取消</a>
+                  </Popconfirm>
+                    </span>
+                ) : (
+                    <a onClick={() => this.edit(record.key)}>编辑</a>
+                )}
+            </div>
+        );
+    }
+    isEditing = (record) => {
+        return record.key === this.state.editingKey;
+    };
+
+    edit(key) {
+        console.log("要编辑的key:"+ key);
+        this.setState({editingKey: key});
+    }
+
+    save(form, key) {
+        const that = this;
+        form.validateFields((error) => {
+            if (error) {
+                return;
+            }
+            console.log("save row:" + JSON.stringify(that.editrow));
+            const newData = [...this.state.list];
+            const index = newData.findIndex(item => key === item.key);
+            if (index > -1) {
+                const item = newData[index];
+                newData.splice(index, 1, {
+                    ...item,
+                    ...that.editrow,
+                });
+                this.setState({list: newData, editingKey: ''});
+            } else {
+                // newData.push(data);
+                // this.setState({ list: newData, editingKey: '' });
+            }
+        });
+    }
+
+    cancel = () => {
+        this.setState({editingKey: ''});
+    };
+
     render() {
+        const components = {
+            body: {
+                row: EditableFormRow,
+                cell: EditableCell,
+            },
+        };
+
+        const columns = this.columns.map((col) => {
+            if (!col.editable) {
+                return col;
+            }
+            return {
+                ...col,
+                onCell: record => ({
+                    record,
+                    inputType: col.dataIndex === 'age' ? 'number' : 'text',
+                    dataIndex: col.dataIndex,
+                    title: col.title,
+                    editing: this.isEditing(record),
+                }),
+            };
+        });
 
         const {
             list,
@@ -313,17 +502,21 @@ class PaginationTable extends React.PureComponent {
             pageSize,
             currentPage
         } = this.state;
+
         const {
             pageSizeOptions
         } = this.props;
+
         return (
             <div>
                 <Table
+                    components={components}
                     loading={isSearching}
-                    columns={this.columns}
+                    columns={columns}
                     dataSource={list}
                     pagination={false}
-                    rowKey="id"
+                    rowKey="key"
+                    scroll={{x: 3000}}
                 />
                 <Pagination
                     totalNum={totalNum}
@@ -337,5 +530,5 @@ class PaginationTable extends React.PureComponent {
     }
 }
 
-export default PaginationTable;
+export default FixedPaginationTable;
 
